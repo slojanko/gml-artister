@@ -6,5 +6,9 @@ enum Split {
 
 function Dock_impl(){
 	split = Split.None;
-	left_dock = noone;
+	
+	// Content
+	window = undefined;
+	first_dock = undefined;
+	second_dock = undefined;
 }
