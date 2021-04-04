@@ -2,6 +2,7 @@ function InputManager() constructor{
 	mouse_position = new Vector2(0, 0);
 	mouse_position_previous = new Vector2(0, 0);
 	mouse_position_delta = new Vector2(0, 0);
+	
 	focused_dock = undefined;
 	
 	function Update() {

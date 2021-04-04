@@ -13,6 +13,7 @@
     {"id":{"name":"dock_spr","path":"sprites/dock_spr/dock_spr.yy",},"order":0,},
     {"id":{"name":"ManagerSystem","path":"objects/ManagerSystem/ManagerSystem.yy",},"order":0,},
     {"id":{"name":"ManagerCreate","path":"scripts/ManagerCreate/ManagerCreate.yy",},"order":1,},
+    {"id":{"name":"GarbageManager_impl","path":"scripts/GarbageManager_impl/GarbageManager_impl.yy",},"order":2,},
     {"id":{"name":"Dock_impl","path":"scripts/Dock_impl/Dock_impl.yy",},"order":0,},
   ],
   "Options": [

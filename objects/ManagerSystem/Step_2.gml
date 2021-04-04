@@ -1,0 +1,1 @@
+global.pGarbageManager.Update();

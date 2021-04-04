@@ -3,6 +3,7 @@ function Dock() constructor {
 	previous_state = DockState.None;
 	state = DockState.None;
 	is_dirty = true;
+	destroy_called = false;
 	
 	// Content
 	surface = -1;
@@ -30,5 +31,20 @@ function Dock() constructor {
 		}
 		
 		draw_surface(surface, rect.position.x, rect.position.y);
+	}
+	
+	function Destroy() {
+		if (destroy_called) {
+			return;
+		}
+		
+		destroy_called = true;
+		
+		if (surface_exists(surface)) {
+			surface_free(surface);
+		}
+		
+		global.pDockManager.RemoveDock(self);
+		global.pGarbageManager.QueueDestroy(self);
 	}
 }
