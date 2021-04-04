@@ -1,5 +1,18 @@
 {
   "resources": [
+    {"id":{"name":"Vector2_impl","path":"scripts/Vector2_impl/Vector2_impl.yy",},"order":0,},
+    {"id":{"name":"test_obj","path":"objects/test_obj/test_obj.yy",},"order":1,},
+    {"id":{"name":"Rect_impl","path":"scripts/Rect_impl/Rect_impl.yy",},"order":1,},
+    {"id":{"name":"Performance_impl","path":"scripts/Performance_impl/Performance_impl.yy",},"order":0,},
+    {"id":{"name":"Window_impl","path":"scripts/Window_impl/Window_impl.yy",},"order":0,},
+    {"id":{"name":"DockState_enum","path":"scripts/DockState_enum/DockState_enum.yy",},"order":2,},
+    {"id":{"name":"test_room","path":"rooms/test_room/test_room.yy",},"order":0,},
+    {"id":{"name":"WindowType_impl","path":"scripts/WindowType_impl/WindowType_impl.yy",},"order":1,},
+    {"id":{"name":"InputManager_impl","path":"scripts/InputManager_impl/InputManager_impl.yy",},"order":1,},
+    {"id":{"name":"DockManager_impl","path":"scripts/DockManager_impl/DockManager_impl.yy",},"order":0,},
+    {"id":{"name":"dock_spr","path":"sprites/dock_spr/dock_spr.yy",},"order":0,},
+    {"id":{"name":"ManagerSystem","path":"objects/ManagerSystem/ManagerSystem.yy",},"order":0,},
+    {"id":{"name":"ManagerCreate","path":"scripts/ManagerCreate/ManagerCreate.yy",},"order":1,},
     {"id":{"name":"Dock_impl","path":"scripts/Dock_impl/Dock_impl.yy",},"order":0,},
   ],
   "Options": [
@@ -15,11 +28,19 @@
     "name": "Default",
     "children": [],
   },
-  "RoomOrderNodes": [],
+  "RoomOrderNodes": [
+    {"roomId":{"name":"test_room","path":"rooms/test_room/test_room.yy",},},
+  ],
   "Folders": [
-    {"folderPath":"folders/Scripts.yy","order":0,"resourceVersion":"1.0","name":"Scripts","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Rooms.yy","order":1,"resourceVersion":"1.0","name":"Rooms","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Objects.yy","order":2,"resourceVersion":"1.0","name":"Objects","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts.yy","order":1,"resourceVersion":"1.0","name":"Scripts","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Rooms.yy","order":4,"resourceVersion":"1.0","name":"Rooms","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Objects.yy","order":3,"resourceVersion":"1.0","name":"Objects","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Sprites.yy","order":0,"resourceVersion":"1.0","name":"Sprites","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/Types.yy","order":5,"resourceVersion":"1.0","name":"Types","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/Dock.yy","order":3,"resourceVersion":"1.0","name":"Dock","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/Managers.yy","order":2,"resourceVersion":"1.0","name":"Managers","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/Window.yy","order":4,"resourceVersion":"1.0","name":"Window","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/Utils.yy","order":6,"resourceVersion":"1.0","name":"Utils","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},
@@ -29,7 +50,7 @@
   ],
   "IncludedFiles": [],
   "MetaData": {
-    "IDEVersion": "2.3.1.542",
+    "IDEVersion": "2.3.2.556",
   },
   "resourceVersion": "1.4",
   "name": "gml-artister",

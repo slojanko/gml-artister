@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Dock",
-    "path": "folders/Scripts/Dock.yy",
+    "name": "Window",
+    "path": "folders/Scripts/Window.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Dock_impl",
+  "name": "WindowType_impl",
   "tags": [],
   "resourceType": "GMScript",
 }

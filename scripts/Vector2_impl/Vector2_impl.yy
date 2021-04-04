@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Dock",
-    "path": "folders/Scripts/Dock.yy",
+    "name": "Types",
+    "path": "folders/Scripts/Types.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Dock_impl",
+  "name": "Vector2_impl",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Dock",
-    "path": "folders/Scripts/Dock.yy",
+    "name": "Managers",
+    "path": "folders/Scripts/Managers.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Dock_impl",
+  "name": "DockManager_impl",
   "tags": [],
   "resourceType": "GMScript",
 }

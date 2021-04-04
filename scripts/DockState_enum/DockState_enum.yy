@@ -6,7 +6,7 @@
     "path": "folders/Scripts/Dock.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Dock_impl",
+  "name": "DockState_enum",
   "tags": [],
   "resourceType": "GMScript",
 }
