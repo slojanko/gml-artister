@@ -1,6 +1,7 @@
 function Dock() constructor {
+	id = -1;
 	rect = new Rect(new Vector2(100, 100), new Vector2(300, 300));
-	previous_state = DockState.None;
+	previous_state = DockState.Interact;
 	state = DockState.None;
 	is_dirty = true;
 	destroy_called = false;
@@ -23,7 +24,7 @@ function Dock() constructor {
 			surface_set_target(surface);
 			
 			draw_sprite_stretched_ext(dock_spr, 0, 0, 0, rect.size.x, rect.size.y, DockStateToColor(state), 1.0);
-			draw_text(0, 0, DockStateToString(state));
+			draw_text(4, 2, DockStateToString(state) + " ID: " + string(id));
 		
 			surface_reset_target();
 			
@@ -44,7 +45,6 @@ function Dock() constructor {
 			surface_free(surface);
 		}
 		
-		global.pDockManager.RemoveDock(self);
 		global.pGarbageManager.QueueDestroy(self);
 	}
 }

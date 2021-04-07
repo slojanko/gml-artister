@@ -6,7 +6,5 @@ if (mouse_check_button_pressed(mb_middle)) {
 
 if (mouse_check_button_pressed(mb_right)) {
 	var dock_ = global.pInputManager.GetDockUnderMouse();
-	if (dock_ != undefined) {
-		dock_.Destroy();
-	}
+	global.pDockManager.DeleteDock(dock_);
 }

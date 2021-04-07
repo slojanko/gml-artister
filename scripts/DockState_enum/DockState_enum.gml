@@ -2,6 +2,7 @@ enum DockState {
 	None,
 	Drag,
 	Hover,
+	Resize,
 	Interact,
 }
 
@@ -13,6 +14,8 @@ function DockStateToString(state_) {
 			return "Drag";
 		case DockState.Hover:
 			return "Hover";
+		case DockState.Resize:
+			return "Resize";
 		case DockState.Interact:
 			return "Interact";
 		default:
@@ -28,6 +31,8 @@ function DockStateToColor(state_) {
 			return c_red;
 		case DockState.Hover:
 			return c_blue;
+		case DockState.Resize:
+			return c_orange;
 		case DockState.Interact:
 			return c_green;
 		default:

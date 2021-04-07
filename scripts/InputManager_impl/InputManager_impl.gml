@@ -42,20 +42,21 @@ function InputManager() constructor{
 			return;
 		}
 		
-		UpdateMouseDock(undefined, DockState.None);
-		
-		// After releasing immediatelly start tracking mouse movement
-		HandleLeftMove();
+		UpdateMouseDock(undefined, DockState.Hover);
 	}
 	
 	function HandleLeftMove() {
-		// Prevent switching focused dock if already interacting with another one
-		if (focused_dock != undefined && focused_dock.state != DockState.None && focused_dock.state != DockState.Hover) {
+		if (!IsFocusedDockPassive()) {
 			return;
 		}
 		
 		var new_focused_dock_ = GetDockUnderMouse();
 		UpdateMouseDock(new_focused_dock_, DockState.Hover);
+	}
+	
+	
+	function IsFocusedDockPassive() {
+		return focused_dock == undefined || focused_dock.state == DockState.None || focused_dock.state == DockState.Hover;
 	}
 	
 	function GetDockUnderMouse() {
