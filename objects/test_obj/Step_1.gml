@@ -1,6 +1,6 @@
 if (mouse_check_button_pressed(mb_middle)) {
 	var dock_ = new Dock();
-	dock_.rect.position.Set(global.pInputManager.mouse_position);
+	dock_.rect.position.Set(global.mouse_position);
 	global.pDockManager.AddDock(dock_);
 }
 

@@ -1,16 +1,16 @@
 function InputManager() constructor{
-	mouse_position = new Vector2(0, 0);
-	mouse_position_previous = new Vector2(0, 0);
-	mouse_position_delta = new Vector2(0, 0);
+	global.mouse_position = new Vector2(0, 0);
+	global.mouse_position_previous = new Vector2(0, 0);
+	global.mouse_position_delta = new Vector2(0, 0);
 	
 	focused_dock = undefined;
 	
 	function Update() {
-		mouse_position_previous.Set(mouse_position);
-		mouse_position.Set(mouse_x, mouse_y);
+		global.mouse_position_previous.Set(global.mouse_position);
+		global.mouse_position.Set(mouse_x, mouse_y);
 		
-		mouse_position_delta.Set(mouse_position);
-		mouse_position_delta.Sub(mouse_position_previous);
+		global.mouse_position_delta.Set(global.mouse_position);
+		global.mouse_position_delta.Sub(global.mouse_position_previous);
 		
 		if (mouse_check_button_pressed(mb_left)) {
 			HandleLeftPress();
@@ -34,7 +34,7 @@ function InputManager() constructor{
 			return;
 		}
 		
-		focused_dock.rect.position.Add(mouse_position_delta);
+		focused_dock.rect.position.Add(global.mouse_position_delta);
 	}
 	
 	function HandleLeftRelease() {
@@ -61,7 +61,7 @@ function InputManager() constructor{
 	
 	function GetDockUnderMouse() {
 		for(var i = global.docks_count - 1; i >= 0 ; i--) {
-			if (global.pDockManager.docks[| i].rect.IsPointInside(mouse_position)) {
+			if (global.pDockManager.docks[| i].rect.IsPointInside(global.mouse_position)) {
 				return global.pDockManager.docks[| i];
 			}
 		}
