@@ -3,14 +3,10 @@ function InputManager() constructor{
 	global.mouse_position_previous = new Vector2(0, 0);
 	global.mouse_position_delta = new Vector2(0, 0);
 	
-	focused_dock = undefined;
+	focused_window = undefined;
 	
 	function Update() {
-		global.mouse_position_previous.Set(global.mouse_position);
-		global.mouse_position.Set(mouse_x, mouse_y);
-		
-		global.mouse_position_delta.Set(global.mouse_position);
-		global.mouse_position_delta.Sub(global.mouse_position_previous);
+		UpdateMousePosition();
 		
 		if (mouse_check_button_pressed(mb_left)) {
 			HandleLeftPress();
@@ -23,61 +19,76 @@ function InputManager() constructor{
 		}
 	}
 	
+	function UpdateMousePosition() {
+		global.mouse_position_previous.Set(global.mouse_position);
+		global.mouse_position.Set(mouse_x, mouse_y);
+		
+		global.mouse_position_delta.Set(global.mouse_position);
+		global.mouse_position_delta.Sub(global.mouse_position_previous);
+	}
+	
 	function HandleLeftPress() {
-		var new_focused_dock_ = GetDockUnderMouse();
-		global.pDockManager.FocusDock(new_focused_dock_);
-		UpdateMouseDock(new_focused_dock_, DockState.Drag);
+		var new_focused_window_ = GetWindowUnderMouse();
+		
+		if (new_focused_window_ == undefined) {
+			return;
+		}
+		
+		global.pWindowManager.FocusWindow(new_focused_window_);
+		ChangeWindowState(new_focused_window_, WindowState.Interact);
+		
+		focused_window.HandleLeftPress();
 	}
 	
 	function HandleLeftHold() {
-		if (focused_dock == undefined) {
+		if (focused_window == undefined) {
 			return;
 		}
 		
-		focused_dock.rect.position.Add(global.mouse_position_delta);
+		focused_window.HandleLeftHold();
 	}
 	
 	function HandleLeftRelease() {
-		if (focused_dock == undefined) {
+		if (focused_window == undefined) {
 			return;
 		}
 		
-		UpdateMouseDock(undefined, DockState.Hover);
+		focused_window.HandleLeftRelease();
+		ChangeWindowState(undefined, WindowState.Hover);
 	}
 	
 	function HandleLeftMove() {
-		if (!IsFocusedDockPassive()) {
+		if (!AllowSwitchingWindow()) {
 			return;
 		}
 		
-		var new_focused_dock_ = GetDockUnderMouse();
-		UpdateMouseDock(new_focused_dock_, DockState.Hover);
+		var new_focused_window_ = GetWindowUnderMouse();
+		ChangeWindowState(new_focused_window_, WindowState.Hover);
 	}
 	
-	
-	function IsFocusedDockPassive() {
-		return focused_dock == undefined || focused_dock.state == DockState.None || focused_dock.state == DockState.Hover;
+	function AllowSwitchingWindow() {
+		return focused_window == undefined || focused_window.state == WindowState.None || focused_window.state == WindowState.Hover;
 	}
 	
-	function GetDockUnderMouse() {
-		for(var i = global.docks_count - 1; i >= 0 ; i--) {
-			if (global.pDockManager.docks[| i].rect.IsPointInside(global.mouse_position)) {
-				return global.pDockManager.docks[| i];
+	function GetWindowUnderMouse() {
+		for(var i = global.window_count - 1; i >= 0 ; i--) {
+			if (global.windows[| i].rect.IsPointInside(global.mouse_position)) {
+				return global.windows[| i];
 			}
 		}
 		
 		return undefined;
 	}
 	
-	function UpdateMouseDock(new_focused_dock_, state_) {
-		if (focused_dock != undefined) {
-			focused_dock.state = DockState.None;
+	function ChangeWindowState(new_focused_window_, state_) {
+		if (focused_window != undefined) {
+			focused_window.state = WindowState.None;
 		}
 		
-		focused_dock = new_focused_dock_;
+		focused_window = new_focused_window_;
 		
-		if (focused_dock != undefined) {
-			focused_dock.state = state_;
+		if (focused_window != undefined) {
+			focused_window.state = state_;
 		}
 	}
 }

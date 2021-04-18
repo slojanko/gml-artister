@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Window",
-    "path": "folders/Scripts/Window.yy",
+    "name": "Widgets",
+    "path": "folders/Scripts/Widgets.yy",
   },
   "resourceVersion": "1.0",
-  "name": "WindowType_impl",
+  "name": "CloseWidget_impl",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Dock",
-    "path": "folders/Scripts/Dock.yy",
+    "name": "Windows",
+    "path": "folders/Scripts/Windows.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Dock_impl",
+  "name": "Window_enums",
   "tags": [],
   "resourceType": "GMScript",
 }

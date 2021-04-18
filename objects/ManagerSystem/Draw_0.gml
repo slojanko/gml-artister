@@ -1,1 +1,1 @@
-global.pDockManager.RenderDocks();
+global.pWindowManager.RenderWindows();

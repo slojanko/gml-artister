@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Dock",
-    "path": "folders/Scripts/Dock.yy",
+    "name": "Managers",
+    "path": "folders/Scripts/Managers.yy",
   },
   "resourceVersion": "1.0",
-  "name": "DockState_enum",
+  "name": "WindowManager_impl",
   "tags": [],
   "resourceType": "GMScript",
 }

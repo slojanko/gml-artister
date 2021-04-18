@@ -1,3 +1,0 @@
-enum WindowType {
-	ColorPicker,
-}

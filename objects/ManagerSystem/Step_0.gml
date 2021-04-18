@@ -1,2 +1,2 @@
 global.pInputManager.Update();
-global.pDockManager.Update();
+global.pWindowManager.Update();

@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Window",
-    "path": "folders/Scripts/Window.yy",
+    "name": "Windows",
+    "path": "folders/Scripts/Windows.yy",
   },
   "resourceVersion": "1.0",
   "name": "Window_impl",
