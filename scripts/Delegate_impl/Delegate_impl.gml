@@ -2,16 +2,20 @@ function Delegate() constructor{
 	subscribers = ds_map_create();
 	id = 0;
 	
-	function Subscribe(function_) {
+	static Subscribe = function(function_) {
 		ds_map_add(subscribers, id, function_);
 		return id++;
 	}
 	
-	function Unsubscribe(id_) {
+	static Unsubscribe = function(id_) {
 		ds_map_delete(subscribers, id_);
 	}
 	
-	function Trigger() {
+	static UnsubscribeAll = function() {
+		ds_map_clear(subscribers);
+	}
+	
+	static Trigger = function() {
 		var size_ = ds_map_size(subscribers);
 		var item_ = ds_map_find_first(subscribers);
 		

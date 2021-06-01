@@ -1,72 +1,112 @@
 function Window() constructor {
 	id = -1;
+	sprite = window_spr;
 	rect = new Rect(new Vector2(global.mouse_position.x, global.mouse_position.y), new Vector2(300, 300));
+	slice = sprite_get_nineslice(sprite);
+	local_mouse_position = new Vector2(0, 0);
 	
 	// State
 	previous_state = WindowState.Hover;
 	state = WindowState.None;
-	interact_substate = WindowInteract.None;
 	
 	// Flags
 	destroy_called = false;
-	is_dirty = true;
+	is_dirty = false;
 	
 	// Content
 	surface = -1;
 	widgets = ds_map_create();
+	focused_widget = undefined;
 	
-	function HandleLeftPress() {
-		if (global.mouse_position.y < rect.position.y + 24) {
-			if (global.mouse_position.x > rect.position.x + rect.size.x - 24) {
-				interact_substate = WindowInteract.Close;
-			} else {
-				interact_substate = WindowInteract.Drag;
-			}
-		} else {
-			interact_substate = WindowInteract.Window;
-		}
+	static Init = function() {
+		global.pWindowManager.AddWindow(self);
+		
+		var close_ = new CloseWidget(self);
+		widgets[? "close"] = close_;
+		
+		var drag_ = new DragWidget(self);
+		widgets[? "drag"] = drag_;
+		
+		var resize_ = new ResizeWidget(self)
+		widgets[? "resize"] = resize_;
 	}
 	
-	function HandleLeftHold() {
-		if (interact_substate == WindowInteract.Drag) {
-			rect.position.Add(global.mouse_position_delta);
+	static HandleLeftPress = function() {
+		var new_focused_widget_ = GetWidgetUnderMouse();
+		
+		if (new_focused_widget_ == undefined) {
+			return;
 		}
+		
+		focused_widget = new_focused_widget_;
+		focused_widget.HandleLeftPress();
 	}
 	
-	function HandleLeftRelease() {		
-		if (global.mouse_position.y < rect.position.y + 24) {
-			if (global.mouse_position.x > rect.position.x + rect.size.x - 24) {
-				if (interact_substate == WindowInteract.Close) {
-					global.pWindowManager.DeleteWindow(self);
-				} else {
-					interact_substate = WindowInteract.None;
-				}
-			} else {
-				interact_substate = WindowInteract.None;
-			}
-		} else {
-			interact_substate = WindowInteract.None;
+	static HandleLeftHold = function() {		
+		if (focused_widget == undefined) {
+			return;
 		}
+		
+		focused_widget.HandleLeftHold();
 	}
 	
-	function Update() {
-		is_dirty = (previous_state != state || state != WindowState.None);
+	static HandleLeftRelease = function() {			
+		if (focused_widget == undefined) {
+			return;
+		}
+		
+		focused_widget.HandleLeftRelease();
+		focused_widget = undefined;
+	}
+	
+	static HandleLeftMove = function() {
+		var new_focused_widget_ = GetWidgetUnderMouse();
+		
+		if (new_focused_widget_ == undefined) {
+			return;
+		}
+		
+		focused_widget = new_focused_widget_;
+		focused_widget.HandleLeftMove();
+	}
+	
+	static Update = function() {
+		local_mouse_position.Set(global.mouse_position);
+		local_mouse_position.Sub(rect.position);
+		
+		is_dirty = previous_state != state || state != WindowState.None;
 		previous_state = state;
+		
+		var key = ds_map_find_first(widgets);
+		for(var i = 0; i < ds_map_size(widgets); i++) {
+			widgets[? key].Update();
+			key = ds_map_find_next(widgets, key);
+		}
 	}
 	
-	function Render() {
-		if (!surface_exists(surface)) {
+	static Render = function() {
+		if (!surface_exists(surface) ) {
 			surface = surface_create(rect.size.x, rect.size.y);
+			is_dirty = true;
+		}
+		
+		if (surface_get_width(surface) != rect.size.x || surface_get_height(surface) != rect.size.y) {
+			surface_resize(surface, rect.size.x, rect.size.y);
 			is_dirty = true;
 		}
 		
 		if (is_dirty) {
 			surface_set_target(surface);
 			
-			draw_sprite_stretched_ext(window_spr, 0, 0, 0, rect.size.x, rect.size.y, WindowStateToColor(state), 1.0);
-			draw_text(4, 30, "ID: " + string(id));
-			draw_text(4, 44, WindowStateToString(state));
-			draw_text(4, 58, WindowInteractToString(interact_substate));
+			draw_sprite_stretched(sprite, 0, 0, 0, rect.size.x, rect.size.y);
+		
+			var key = ds_map_find_first(widgets);
+			for(var i = 0; i < ds_map_size(widgets); i++) {
+				widgets[? key].Render();
+				key = ds_map_find_next(widgets, key);
+			}
+			
+			draw_text_ext(4, 28, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum", 16, rect.size.x - 8);
 		
 			surface_reset_target();
 			
@@ -76,7 +116,24 @@ function Window() constructor {
 		draw_surface(surface, rect.position.x, rect.position.y);
 	}
 	
-	function Destroy() {
+	static GetWidgetUnderMouse = function() {
+		var key = ds_map_find_first(widgets);
+		for(var i = 0; i < ds_map_size(widgets); i++) {
+			
+			if (widgets[? key].IsPointInside(local_mouse_position)) {
+				return widgets[? key];
+			}
+			key = ds_map_find_next(widgets, key);
+		}
+		
+		return undefined;
+	}
+	
+	static IsPointInside = function(point_) {
+		return rect.IsPointInside(point_);
+	}
+	
+	static Destroy = function() {
 		if (destroy_called) {
 			return;
 		}
@@ -87,6 +144,7 @@ function Window() constructor {
 			surface_free(surface);
 		}
 		
+		global.pWindowManager.RemoveWindow(self);
 		global.pGarbageManager.QueueDestroy(self);
 	}
 }

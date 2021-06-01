@@ -1,13 +1,18 @@
-function CloseWidget() constructor {
+function CloseWidget(window_) : Widget(window_) constructor {
 	sprite = close_spr;
-	window = undefined;
-	rect = new Rect(new Vector2(0, 0), new Vector2(sprite_get_width(sprite), sprite_get_height(sprite)));
+	rect.size.Set(24, 24);
 	
-	function Init(window_) {
-		window = window_;
+	static Update = function() {
+		rect.position.Set(window.rect.size.x - 24, 0);
 	}
 	
-	function Render() {
+	static Render = function() {
+		draw_sprite(sprite, 0, rect.position.x + 12, rect.position.y + 12);
+	}
 	
+	static HandleLeftRelease = function() {
+		if (IsPointInside(window.local_mouse_position)) {
+			window.Destroy();
+		}
 	}
 }

@@ -3,13 +3,13 @@ function WindowManager() constructor{
 	global.window_count = 0;
 	unique_id = 0;
 	
-	function AddWindow(window_) {
+	static AddWindow = function(window_) {
 		ds_list_add(global.windows, window_);
 		window_.id = unique_id++;
 		global.window_count++;
 	}
 	
-	function FocusWindow(window_) {
+	static FocusWindow = function(window_) {
 		if (window_ != undefined) {
 			var index = ds_list_find_index(global.windows, window_);
 			ds_list_delete(global.windows, index);
@@ -17,24 +17,19 @@ function WindowManager() constructor{
 		}
 	}
 	
-	function RemoveWindow(window_) {
+	static RemoveWindow = function(window_) {
 		var index = ds_list_find_index(global.windows, window_);
 		ds_list_delete(global.windows, index);
 		global.window_count--;
 	}
 	
-	function DeleteWindow(window_) {
-		window_.Destroy();
-		RemoveWindow(window_);
-	}
-	
-	function Update() {
+	static Update = function() {
 		for(var i = 0; i < global.window_count; i++) {
 			global.windows[| i].Update();
 		}
 	}
 	
-	function RenderWindows() {
+	static RenderWindows = function() {
 		draw_set_font(main_font);
 		for(var i = 0; i < global.window_count; i++) {
 			global.windows[| i].Render();

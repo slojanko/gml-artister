@@ -5,7 +5,7 @@ function InputManager() constructor{
 	
 	focused_window = undefined;
 	
-	function Update() {
+	static Update = function() {
 		UpdateMousePosition();
 		
 		if (mouse_check_button_pressed(mb_left)) {
@@ -19,7 +19,7 @@ function InputManager() constructor{
 		}
 	}
 	
-	function UpdateMousePosition() {
+	static UpdateMousePosition = function() {
 		global.mouse_position_previous.Set(global.mouse_position);
 		global.mouse_position.Set(mouse_x, mouse_y);
 		
@@ -27,7 +27,7 @@ function InputManager() constructor{
 		global.mouse_position_delta.Sub(global.mouse_position_previous);
 	}
 	
-	function HandleLeftPress() {
+	static HandleLeftPress = function() {
 		var new_focused_window_ = GetWindowUnderMouse();
 		
 		if (new_focused_window_ == undefined) {
@@ -37,10 +37,10 @@ function InputManager() constructor{
 		global.pWindowManager.FocusWindow(new_focused_window_);
 		ChangeWindowState(new_focused_window_, WindowState.Interact);
 		
-		focused_window.HandleLeftPress();
+		new_focused_window_.HandleLeftPress();
 	}
 	
-	function HandleLeftHold() {
+	static HandleLeftHold = function() {
 		if (focused_window == undefined) {
 			return;
 		}
@@ -48,7 +48,7 @@ function InputManager() constructor{
 		focused_window.HandleLeftHold();
 	}
 	
-	function HandleLeftRelease() {
+	static HandleLeftRelease = function() {
 		if (focused_window == undefined) {
 			return;
 		}
@@ -57,22 +57,27 @@ function InputManager() constructor{
 		ChangeWindowState(undefined, WindowState.Hover);
 	}
 	
-	function HandleLeftMove() {
+	static HandleLeftMove = function() {
 		if (!AllowSwitchingWindow()) {
 			return;
 		}
 		
 		var new_focused_window_ = GetWindowUnderMouse();
+		
 		ChangeWindowState(new_focused_window_, WindowState.Hover);
+		
+		if (new_focused_window_ != undefined) {
+			new_focused_window_.HandleLeftMove();
+		}
 	}
 	
-	function AllowSwitchingWindow() {
+	static AllowSwitchingWindow = function() {
 		return focused_window == undefined || focused_window.state == WindowState.None || focused_window.state == WindowState.Hover;
 	}
 	
-	function GetWindowUnderMouse() {
+	static GetWindowUnderMouse = function() {
 		for(var i = global.window_count - 1; i >= 0 ; i--) {
-			if (global.windows[| i].rect.IsPointInside(global.mouse_position)) {
+			if (global.windows[| i].IsPointInside(global.mouse_position)) {
 				return global.windows[| i];
 			}
 		}
@@ -80,7 +85,7 @@ function InputManager() constructor{
 		return undefined;
 	}
 	
-	function ChangeWindowState(new_focused_window_, state_) {
+	static ChangeWindowState = function(new_focused_window_, state_) {
 		if (focused_window != undefined) {
 			focused_window.state = WindowState.None;
 		}

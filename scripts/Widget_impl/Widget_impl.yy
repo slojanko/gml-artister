@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Extras",
-    "path": "folders/Scripts/Extras.yy",
+    "name": "Widgets",
+    "path": "folders/Scripts/Widgets.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Performance_impl",
+  "name": "Widget_impl",
   "tags": [],
   "resourceType": "GMScript",
 }

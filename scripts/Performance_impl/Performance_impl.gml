@@ -11,14 +11,14 @@ function Performance() constructor{
 	is_ticking = false;
 	longest_time_taken = 0;
 	
-	function Start() {
+	static Start = function() {
 		if (!is_ticking) {
 			start_time = get_timer();
 			is_ticking = true;
 		}
 	}
 	
-	function End() {
+	static End = function() {
 		if (is_ticking) {
 			end_time = get_timer();
 			time_taken = end_time - start_time;
@@ -29,7 +29,7 @@ function Performance() constructor{
 		}
 	}
 		
-	function Reset() {	
+	static Reset = function() {	
 		time_taken = 0;
 		start_time = 0;
 		end_time = 0;
@@ -37,11 +37,11 @@ function Performance() constructor{
 		longest_time_taken = 0;
 	}
 	
-	function GetTime(performance_format_) {
+	static GetTime = function(performance_format_) {
 		return time_taken / performance_format_;
 	}
 	
-	function GetLongestTime(performance_format_) {
+	static GetLongestTime = function(performance_format_) {
 		return longest_time_taken / performance_format_;
 	}
 }
