@@ -1,35 +1,31 @@
 function Window() constructor {
-	id = -1;
+	id = global.pWindowManager.AddWindow(self);
 	sprite = window_spr;
 	rect = new Rect(new Vector2(global.mouse_position.x, global.mouse_position.y), new Vector2(300, 300));
 	slice = sprite_get_nineslice(sprite);
-	local_mouse_position = new Vector2(0, 0);
+	surface = undefined;
 	
 	// State
 	previous_state = WindowState.Hover;
 	state = WindowState.None;
+	local_mouse_position = new Vector2(0, 0);
 	
 	// Flags
 	destroy_called = false;
 	is_dirty = false;
 	
 	// Content
-	surface = -1;
 	widgets = ds_map_create();
 	focused_widget = undefined;
-	
-	static Init = function() {
-		global.pWindowManager.AddWindow(self);
 		
-		var close_ = new CloseWidget(self);
-		widgets[? "close"] = close_;
+	var close_ = new CloseWidget(self);
+	widgets[? "close"] = close_;
 		
-		var drag_ = new DragWidget(self);
-		widgets[? "drag"] = drag_;
+	var drag_ = new DragWidget(self);
+	widgets[? "drag"] = drag_;
 		
-		var resize_ = new ResizeWidget(self)
-		widgets[? "resize"] = resize_;
-	}
+	var resize_ = new ResizeWidget(self)
+	widgets[? "resize"] = resize_;
 	
 	static HandleLeftPress = function() {
 		var new_focused_widget_ = GetWidgetUnderMouse();
@@ -143,6 +139,8 @@ function Window() constructor {
 		if (surface_exists(surface)) {
 			surface_free(surface);
 		}
+		
+		ds_map_destroy(widgets);
 		
 		global.pWindowManager.RemoveWindow(self);
 		global.pGarbageManager.QueueDestroy(self);

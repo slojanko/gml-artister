@@ -5,8 +5,8 @@ function WindowManager() constructor{
 	
 	static AddWindow = function(window_) {
 		ds_list_add(global.windows, window_);
-		window_.id = unique_id++;
 		global.window_count++;
+		return unique_id++;
 	}
 	
 	static FocusWindow = function(window_) {

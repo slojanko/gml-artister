@@ -23,4 +23,8 @@ function Widget(window_){
 	static IsPointInside = function(point_) {
 		return rect.IsPointInside(point_);
 	}
+	
+	static IsMouseInside = function() {
+		return IsPointInside(window.local_mouse_position);
+	}
 }

@@ -11,7 +11,7 @@ function CloseWidget(window_) : Widget(window_) constructor {
 	}
 	
 	static HandleLeftRelease = function() {
-		if (IsPointInside(window.local_mouse_position)) {
+		if (IsMouseInside()) {
 			window.Destroy();
 		}
 	}
